@@ -6,6 +6,7 @@ self.addEventListener('fetch',e=>{
   const u=new URL(e.request.url);
   if(u.origin!==location.origin)return;
   e.respondWith(caches.match(e.request,{ignoreSearch:true}).then(hit=>hit||fetch(e.request).then(r=>{
-    if(r&&r.status===200){const c=r.clone();caches.open(V).then(x=>x.put(e.request,c))}return r;
+    if(r&&r.status===200){const c=r.clone();caches.open(V).then(x=>x.put(e.request,c))}
+    return r;
   }).catch(()=>caches.match('./index.html'))));
 });
